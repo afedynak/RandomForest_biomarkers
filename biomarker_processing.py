@@ -19,8 +19,8 @@ print(df.head())
 
 # Step 3: Drop the ID and non-numeric columns
 # Store the ID columns to keep them for reference
-df_id = df[['Total Number of samples', 'Identification 1st Round', 'Identification Erica']]  # Store the ID columns
-df_clean = df.drop(columns=['Total Number of samples', 'Identification 1st Round', 'Identification Erica'])
+df_id = df[['Total Number of samples', 'ID']]# Store the ID columns
+df_clean = df.drop(columns=['Total Number of samples', 'ID'] 
 
 # Step 4: Convert all columns to numeric, non-numeric values will be coerced to NaN
 df_clean = df_clean.apply(pd.to_numeric, errors='coerce')
