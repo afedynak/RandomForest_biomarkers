@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
@@ -9,6 +10,14 @@ from sklearn.cluster import KMeans
 from sklearn.ensemble import RandomForestClassifier
 
 file_path = '/Users/admin/Desktop/RandomForest/BL-1Notes_2Round_Sep2024.xlsx'
+
+biomarkers = [
+    'IL-6', 'gp130', 'IL-8/CXCL-8', 'uPAR', 'MIF', 'CCL-2/MCP-1', 
+    'Osteoprotegerin', 'IL-1beta/IL-1F2', 'CCL-20/MIP-3alpha',
+    'CCL-3/MIP-1alpha', 'CCL-4/MIP-1beta', 'CCL-13/MCP4', 'GM-CSF',
+    'ICAM-1/CD54', 'TNFRII/TNFRSF1B', 'TNFRI/TNFRSF1A', 'PIGF',
+    'GRO/KC', 'IGFBP-2', 'TIMP-1', 'IGFBP-6', 'Angiogenin', 'SASP'
+]
 
 # Step 1: Read the Excel file into a DataFrame
 df = pd.read_excel(file_path)
@@ -122,3 +131,15 @@ feature_importance = pd.DataFrame({
 sns.barplot(x='Importance', y='Feature', data=feature_importance)
 plt.title('Feature Importance from Random Forest')
 plt.show()
+
+# Iterate through biomarkers and perform a t-test for each
+for biomarker in biomarkers:
+    group_1 = df_clean_imputed[df['target'] == 0][biomarker]  # Group 1 (e.g., healthy)
+    group_2 = df_clean_imputed[df['target'] == 1][biomarker]  # Group 2 (e.g., diseased)
+
+    # Perform t-test to check if the means of the two groups are significantly different
+    t_stat, p_value = stats.ttest_ind(group_1, group_2)
+
+    # Print results for each biomarker
+    print(f"Results for {biomarker}:")
+    print(f"T-statistic: {t_stat}, p-value: {p_value}\n")
