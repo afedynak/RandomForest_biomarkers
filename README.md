@@ -3,13 +3,13 @@ This repository contains a comprehensive set of tools for analyzing and visualiz
 
 The project demonstrates how to:
 
-- Load, clean, and preprocess health-related data
+- Load, clean, and preprocess biomarker data
 
 - Perform Principal Component Analysis (PCA) for dimensionality reduction
 
 - Visualize correlations between biomarkers and features
 
-- Apply clustering (K-means) to identify groups or patterns in the data
+- Apply K-means clustering to identify groups or patterns in the data
 
 - Use Random Forest Classifier to evaluate feature importance and make predictions
 
