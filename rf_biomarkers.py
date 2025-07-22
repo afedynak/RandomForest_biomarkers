@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.cluster import KMeans
 from sklearn.ensemble import RandomForestClassifier
+from statsmodels.stats.multitest import multipletests
 
 file_path = '/Users/admin/Desktop/RandomForest/BL-1Notes_2Round_Sep2024.xlsx'
 
@@ -133,13 +134,25 @@ plt.title('Feature Importance from Random Forest')
 plt.show()
 
 # Iterate through biomarkers and perform a t-test for each
+# Store p-values from t-tests
+p_values = []
+
+# Iterate through biomarkers and perform a t-test for each
 for biomarker in biomarkers:
     group_1 = df_clean_imputed[df['target'] == 0][biomarker]  # Group 1 (e.g., healthy)
     group_2 = df_clean_imputed[df['target'] == 1][biomarker]  # Group 2 (e.g., diseased)
 
     # Perform t-test to check if the means of the two groups are significantly different
-    t_stat, p_value = stats.ttest_ind(group_1, group_2)
+    t_stat, p_value = stats.ttest_ind(group_1, group_2, nan_policy='omit')
 
-    # Print results for each biomarker
-    print(f"Results for {biomarker}:")
-    print(f"T-statistic: {t_stat}, p-value: {p_value}\n")
+    # Append the p-value for FDR correction
+    p_values.append(p_value)
+
+# Apply Benjamini-Hochberg FDR correction to the p-values
+rejected, pval_corrected = multipletests(p_values, alpha=0.05, method='fdr_bh')[:2]
+
+# Print results for each biomarker after FDR correction
+print("\nSignificant biomarkers after FDR correction (p-value < 0.05):")
+for i, biomarker in enumerate(biomarkers):
+    if pval_corrected[i] < 0.05:  # Checking if the corrected p-value is significant
+        print(f"{biomarker}: Corrected p-value: {pval_corrected[i]}")
