@@ -13,11 +13,16 @@ from statsmodels.stats.multitest import multipletests
 file_path = '/Users/admin/Desktop/RandomForest/BL-1Notes_2Round_Sep2024.xlsx'
 
 biomarkers = [
-    'IL-6', 'gp130', 'IL-8/CXCL-8', 'uPAR', 'MIF', 'CCL-2/MCP-1', 
-    'Osteoprotegerin', 'IL-1beta/IL-1F2', 'CCL-20/MIP-3alpha',
-    'CCL-3/MIP-1alpha', 'CCL-4/MIP-1beta', 'CCL-13/MCP4', 'GM-CSF',
-    'ICAM-1/CD54', 'TNFRII/TNFRSF1B', 'TNFRI/TNFRSF1A', 'PIGF',
-    'GRO/KC', 'IGFBP-2', 'TIMP-1', 'IGFBP-6', 'Angiogenin', 'SASP'
+    'Osteoprotegerin', 'IL-1beta/IL-1F2', 'CCL-20/MIP-3alpha', 'CCL-3/MIP-1alpha',
+    'CCL-4/MIP-1beta', 'CCL-13/MCP4', 'GM-CSF', 'ICAM-1/CD54', 'TNFRII/TNFRSF1B',
+    'TNFRI/TNFRSF1A', 'PIGF', 'GRO/KC', 'IGFBP-2', 'TIMP-1', 'IGFBP-6',
+    'Angiogenin', 'miR-21', 'Amyloid Beta (Aβ)', 'Tau protein', 
+    'Procalcitonin', 'NGF (Nerve Growth Factor)', 'DNA methylation patterns', 
+    'Exosomal proteins', 'F2-Isoprostanes', 'Urinary metabolite profiles', 
+    'Brain-derived neurotrophic factor (BDNF)', 'Placental Growth Factor (PlGF)', 
+    'Oxygen saturation levels', 
+    'CSF (Cerebrospinal fluid) Neurofilament Light Chain (NFL)', 
+    'Microglial activation markers', 'D-dimer', 'Glutamate'
 ]
 
 # Step 1: Read the Excel file into a DataFrame
